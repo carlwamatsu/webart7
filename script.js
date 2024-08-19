@@ -39,24 +39,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Seleciona aleatoriamente 3 imagens no carregamento da página
     const selectedGifs = getRandomImages(gifs, 3);
 
+    let isMouseDown = false; // Variável para verificar o estado do botão do mouse
+
+    // Evento que é chamado quando o botão do mouse é pressionado
+    document.addEventListener('mousedown', function() {
+        isMouseDown = true;
+    });
+
+    // Evento que é chamado quando o botão do mouse é liberado
+    document.addEventListener('mouseup', function() {
+        isMouseDown = false;
+    });
+
     // Adiciona o evento de movimento do mouse
     document.addEventListener('mousemove', function(event) {
-        // Seleciona um GIF aleatório das 3 imagens selecionadas
-        let gifIndex = Math.floor(Math.random() * selectedGifs.length);
+        if (isMouseDown) { // Verifica se o botão do mouse está pressionado
+            // Seleciona um GIF aleatório das 3 imagens selecionadas
+            let gifIndex = Math.floor(Math.random() * selectedGifs.length);
 
-        // Cria um novo elemento de imagem
-        let img = document.createElement('img');
-        img.src = selectedGifs[gifIndex]; // Atribui o GIF selecionado
-        img.classList.add('plant');
+            // Cria um novo elemento de imagem
+            let img = document.createElement('img');
+            img.src = selectedGifs[gifIndex]; // Atribui o GIF selecionado
+            img.classList.add('plant');
 
-        // Define a posição da imagem baseada na posição do mouse
-        img.style.position = 'absolute'; // Garantir que a imagem seja posicionada corretamente
-        img.style.left = event.pageX + 'px';
-        img.style.top = event.pageY + 'px';
+            // Define a posição da imagem baseada na posição do mouse
+            img.style.position = 'absolute'; // Garantir que a imagem seja posicionada corretamente
+            img.style.left = event.pageX + 'px';
+            img.style.top = event.pageY + 'px';
 
-        // Adiciona a imagem ao container
-        container.appendChild(img);
-
-       
+            // Adiciona a imagem ao container
+            container.appendChild(img);
+        }
     });
 });
